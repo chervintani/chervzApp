@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="myDemoApp">
+
 <head>
- <title>Hello, Angular</title>
- <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <style>
+        .started {
+            background: gold;
+        }
+    </style>
+    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <script>
+        function MyDataService() {
+            return {
+                getWorlds: function getWorlds() {
+                    return ["this world", "another world"];
+                }
+            };
+        }
+        function DemoController(worldsService) {
+            var vm = this;
+            vm.messages = worldsService.getWorlds().map(function (w) {
+                return "Hello, " + w + "!";
+            });
+        }
+        function startup($rootScope, $window) {
+            $window.alert("Hello, user! Loading worlds...");
+            $rootScope.hasStarted = true;
+        }
+
+        angular.module("myDemoApp", [/* module dependencies go here */])
+            .service("worldsService", [MyDataService])
+            .controller("demoController", function ($scope) {
+                $scope.name = "Mr Local!";
+            })
+            .config(function () {
+                console.log('configuring application');
+            })
+            .run(function ($rootScope) {
+                $rootScope.name = "World!";
+            });
+    </script>
 </head>
-<body >
- <label>Name</label>
- <input ng-model="name" />
- <span>Hello, {{ name }}!</span>
- <p ng-bind="name"></p>
+
+<body ng-class="{ 'started': hasStarted }" ng-cloak>
+    <div ng-app="myDemoApp">
+        <div ng-controller="demoController">
+            <h1>Hello {{ name }}</h1>
+        </div>
+    </div>
 </body>
+
 </html>
