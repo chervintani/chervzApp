@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div id="studentbtn">
+        <button type="button">Add Student</button>
+    </div>
+    <div id="createForm" style="display: none">
+        <form onsubmit="newElement()">
+            Name:<input type="text" placeholder="Full Name" id="name" required><br>
+            Course & Year: <input type="text" placeholder="Course & Year" id="course" required><br>
+            Email: <input type="text" placeholder="Email" name="email" required><br>
+            Password: <input type="text" placeholder="Password" name="password" required><br>
+            <button type="submit" id="submit">Save</button>
+        </form>
+    </div>
+    <div id="classlist">
+        <table>
+
+        </table>
+    </div>
+</body>
+<script>
+
+    function newElement() {
+        var li = document.createElement("li");
+        var name = document.getElementById("name").value;
+        var course = document.getElementById("course").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var txtName = document.createTextNode(name);
+        var txtCourse = document.createTextNode(course);
+        var txtEmail = document.createTextNode(email);
+        var txtPass = document.createTextNode(password);
+        li.appendChild(txtName);
+        li.appendChild(txtCourse);
+        li.appendChild(txtEmail);
+        li.appendChild(txtPass);
+        
+        document.getElementsByTagName("table").appendChild(li);
+        
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $('#studentbtn').click(function () {
+            $(this).css("display", "none");
+            $('#createForm').css("display", "inherit");
+        });
+        $('#submit').click(function () {
+            $('#studentbtn').css("display", "inherit");
+            $('#createForm').css("display", "none");
+
+
+        });
+
+    });
+</script>
+
+</html>
