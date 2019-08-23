@@ -2,6 +2,24 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
 </head>
 
 <body>
@@ -10,7 +28,7 @@
         <button type="button">Add Student</button>
     </div>
     <div id="createForm" style="display: none">
-        <form onsubmit="newElement()">
+        <form>
             Name:<input type="text" placeholder="Full Name" id="name" required><br>
             Course & Year: <input type="text" placeholder="Course & Year" id="course" required><br>
             Email: <input type="text" placeholder="Email" name="email" required><br>
@@ -19,56 +37,48 @@
         </form>
     </div>
     <div id="classlist">
-        <table>
+        <table id="table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Course & Year</th>
+            </tr>
 
         </table>
     </div>
 </body>
 <script>
 
-    function newElement() {
-        var li = document.createElement("li");
-        var name = document.getElementById("name").value;
-        var course = document.getElementById("course").value;
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        var txtName = document.createTextNode(name);
-        var txtCourse = document.createTextNode(course);
-        var txtEmail = document.createTextNode(email);
-        var txtPass = document.createTextNode(password);
-        li.appendChild(txtName);
-        li.appendChild(txtCourse);
-        li.appendChild(txtEmail);
-        li.appendChild(txtPass);
-        
-        document.getElementsByTagName("table").appendChild(li);
-        
-        document.getElementById("myInput").value = "";
-
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        li.appendChild(span);
-
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-            }
-        }
-    }
 
     $(document).ready(function () {
+        var $ID = 0;
         $('#studentbtn').click(function () {
             $(this).css("display", "none");
             $('#createForm').css("display", "inherit");
+            $('#classlist').css("display", "none");
+
+            var $name = $('#name').val("");
+            var $course = $('#course').val("");
+            var $email = $('#email').val("");
+            var $password = $('#password').val("");
         });
         $('#submit').click(function () {
             $('#studentbtn').css("display", "inherit");
             $('#createForm').css("display", "none");
+            
 
-
+            var $name = $('#name').val();
+            var $course = $('#course').val();
+            $ID = $ID  + 1;
+            $closing = '</tr>';
+            $editBtn = $('<td>Close</td>');
+            //I STOPPED HERE FOR THE EDIT BUTTON AND SET THE ATTRIBUTE ID 
+            $('#table').append('<tr><td>'+$ID+'</td><td>'+$name+'</td><td>'+$course+'</td>'+$editBtn);
+            // var $button = $($editBtn+$closing);
+            // $('#table').append($button);
+            $editbutton.attr('id',$ID);
+            $('#classlist').css("display", "inherit");
+            
         });
 
     });
