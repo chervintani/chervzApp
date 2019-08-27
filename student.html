@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
     <style>
         table {
             border-collapse: collapse;
@@ -23,7 +24,6 @@
 </head>
 
 <body>
-
     <div id="studentbtn">
         <button type="button">Add Student</button>
     </div>
@@ -31,9 +31,9 @@
         <form>
             Name:<input type="text" placeholder="Full Name" id="name" required><br>
             Course & Year: <input type="text" placeholder="Course & Year" id="course" required><br>
-            Email: <input type="text" placeholder="Email" name="email" required><br>
-            Password: <input type="text" placeholder="Password" name="password" required><br>
-            <button type="submit" id="submit">Save</button>
+            Email: <input type="text" placeholder="Email" name="email" id="email" required><br>
+            Password: <input type="text" placeholder="Password" name="password" id="password" required><br>
+            <input type="button" value="Save" id="save"/>
         </form>
     </div>
     <div id="classlist">
@@ -42,16 +42,14 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Course & Year</th>
+                <th>action</th>
             </tr>
-
         </table>
     </div>
 </body>
 <script>
-
-
     $(document).ready(function () {
-        var $ID = 0;
+        var ID = 0;
         $('#studentbtn').click(function () {
             $(this).css("display", "none");
             $('#createForm').css("display", "inherit");
@@ -62,23 +60,35 @@
             var $email = $('#email').val("");
             var $password = $('#password').val("");
         });
-        $('#submit').click(function () {
-            $('#studentbtn').css("display", "inherit");
-            $('#createForm').css("display", "none");
-            
-
+        $('#save').click(function () {
             var $name = $('#name').val();
             var $course = $('#course').val();
-            $ID = $ID  + 1;
-            $closing = '</tr>';
-            $editBtn = $('<td>Close</td>');
-            //I STOPPED HERE FOR THE EDIT BUTTON AND SET THE ATTRIBUTE ID 
-            $('#table').append('<tr><td>'+$ID+'</td><td>'+$name+'</td><td>'+$course+'</td>'+$editBtn);
-            // var $button = $($editBtn+$closing);
-            // $('#table').append($button);
-            $editbutton.attr('id',$ID);
-            $('#classlist').css("display", "inherit");
+            var $email = $('#email').val();
+            var $password = $('#password').val();
+            var $edit = '<button class="editni">Edit</button>';
+            var $delete = '<button class="deleteni">Delete</button>';
             
+            if($name ===""||$course ===""||$email ===""||$password===""){
+                alert("Please fill up all the form");
+            }else{
+            $('#classlist').css("display", "inherit");
+            $('#createForm').css("display", "none");
+            $('#studentbtn').css("display", "inherit");
+            ID = ID + 1;
+
+            $('#table').append("<tr><td><span id="+ID+">" + ID + "</span></td><td>"+$name+"</td><td>"+$course+"</td><td>"+$edit+$delete+"</td></tr>");
+     
+            }
+        });
+
+        $('.editni').click(function(){
+            $('#classlist').css("display", "none");
+            $('#createForm').css("display", "inherit");
+            $('#studentbtn').css("display", "none");
+        });
+
+        $('.deleteni').click(function(){
+            $('#')
         });
 
     });
