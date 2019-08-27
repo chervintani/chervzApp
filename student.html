@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <script src="jquery-3.4.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         table {
             border-collapse: collapse;
@@ -23,26 +24,85 @@
     </style>
 </head>
 
-<body>
+<body class="jumbotron text-center">
     <div id="studentbtn">
-        <button type="button">Add Student</button>
-    </div>
+        <button type="button" class="btn btn-primary float-left">Add Student</button>
+    </div><br><br>
     <div id="createForm" style="display: none">
-        <form>
-            Name:<input type="text" placeholder="Full Name" id="name" required><br>
-            Course & Year: <input type="text" placeholder="Course & Year" id="course" required><br>
-            Email: <input type="text" placeholder="Email" name="email" id="email" required><br>
-            Password: <input type="text" placeholder="Password" name="password" id="password" required><br>
-            <input type="button" value="Save" id="save"/>
-        </form>
+        <main class="login-form">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">Add Student</div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <label for="email_address"
+                                            class="col-md-4 col-form-label text-md-right">Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="name" class="form-control" name="email-address"
+                                                required autofocus>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="email_address" class="col-md-4 col-form-label text-md-right">Course
+                                            & Year</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="course" class="form-control" name="email-address"
+                                                required autofocus>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="email_address"
+                                            class="col-md-4 col-form-label text-md-right">Email</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="email" class="form-control" name="email-address"
+                                                required autofocus>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="email_address"
+                                            class="col-md-4 col-form-label text-md-right">Address</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="address" class="form-control" name="email-address"
+                                                required autofocus>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="button" class="btn btn-success" id="save">
+                                            Save
+                                        </button>
+                                        <button type="button" class="btn btn-danger" id="cancel">
+                                            Cancel
+                                        </button>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    </main>
+
+
     </div>
     <div id="classlist">
         <table id="table">
+            <h2>Class List</h2>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Course & Year</th>
-                <th>action</th>
+                <th></th>
             </tr>
         </table>
     </div>
@@ -50,47 +110,67 @@
 <script>
     $(document).ready(function () {
         var ID = 0;
+        var IDbtn = 1;
         $('#studentbtn').click(function () {
             $(this).css("display", "none");
             $('#createForm').css("display", "inherit");
             $('#classlist').css("display", "none");
-
             var $name = $('#name').val("");
             var $course = $('#course').val("");
             var $email = $('#email').val("");
-            var $password = $('#password').val("");
+            var $address = $('#address').val("");
         });
         $('#save').click(function () {
             var $name = $('#name').val();
             var $course = $('#course').val();
             var $email = $('#email').val();
-            var $password = $('#password').val();
-            var $edit = '<button class="editni">Edit</button>';
-            var $delete = '<button class="deleteni">Delete</button>';
-            
-            if($name ===""||$course ===""||$email ===""||$password===""){
+            var $address = $('#address').val();
+            var $edit = '<button class="editbtn" id=' + IDbtn + ' style="display: none">Edit</button>';
+            var $delete = '<button class="deletebtn" id=' + IDbtn + ' style="display: none">Delete</button>';
+
+            if ($name === "" || $course === "" || $email === "" || $address === "") {
                 alert("Please fill up all the form");
-            }else{
+            } else {
+                $('#classlist').css("display", "inherit");
+                $('#createForm').css("display", "none");
+                $('#studentbtn').css("display", "inherit");
+                ID = ID + 1;
+                IDbtn = IDbtn + 1;
+                $('#table').append("<tr id=" + ID + "><td><span id=" + ID + ">" + ID + "</span></td><td id=" + ID + " name='name'>" + $name + "</td><td id=" + ID + " name='course'>" + $course + "</td><td id='button'>" + $edit + $delete + "</td></tr>");
+            };
+            var $name = $('#name').val("");
+            var $course = $('#course').val("");
+            var $email = $('#email').val("");
+            var $address = $('#address').val("");
+        });
+        $('#cancel').click(function () {
             $('#classlist').css("display", "inherit");
             $('#createForm').css("display", "none");
             $('#studentbtn').css("display", "inherit");
-            ID = ID + 1;
-
-            $('#table').append("<tr><td><span id="+ID+">" + ID + "</span></td><td>"+$name+"</td><td>"+$course+"</td><td>"+$edit+$delete+"</td></tr>");
-     
-            }
         });
-
-        $('.editni').click(function(){
+        $(document).on("click", '.editbtn', function () {
             $('#classlist').css("display", "none");
             $('#createForm').css("display", "inherit");
             $('#studentbtn').css("display", "none");
+
+            var a = $('#createForm').children("#" + this.id + "").val();
+            $(this).closest('form').data
         });
 
-        $('.deleteni').click(function(){
-            $('#')
+        $(document).on("click", '.deletebtn', function () {
+            var row = $('tr[id=' + this.id + ']').remove();
+
+
         });
 
+        $(document).on("mouseenter",'tr',function() {             
+			$(this).find('.editbtn').show();
+			$(this).find('.deletebtn').show();
+		});
+        $(document).on("mouseleave",'tr',function() {             
+			$(this).find('.editbtn').hide();
+			$(this).find('.deletebtn').hide();
+		});
     });
 </script>
 
