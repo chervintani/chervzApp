@@ -73,8 +73,6 @@
                                         </div>
                                     </div>
 
-
-
                                     <div class="col-md-6 offset-md-4">
                                         <button type="button" class="btn btn-success" id="save">
                                             Save
@@ -159,18 +157,16 @@
 
         $(document).on("click", '.deletebtn', function () {
             var row = $('tr[id=' + this.id + ']').remove();
-
-
         });
 
-        $(document).on("mouseenter",'tr',function() {             
-			$(this).find('.editbtn').show();
-			$(this).find('.deletebtn').show();
-		});
-        $(document).on("mouseleave",'tr',function() {             
-			$(this).find('.editbtn').hide();
-			$(this).find('.deletebtn').hide();
-		});
+        $(document).on("mouseenter", 'tr', function () {
+            $(this).find('.editbtn').show();
+            $(this).find('.deletebtn').show();
+        });
+        $(document).on("mouseleave", 'tr', function () {
+            $(this).find('.editbtn').hide();
+            $(this).find('.deletebtn').hide();
+        });
     });
 </script>
 
