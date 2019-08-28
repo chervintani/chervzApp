@@ -123,8 +123,8 @@
             var $course = $('#course').val();
             var $email = $('#email').val();
             var $address = $('#address').val();
-            var $edit = '<button class="editbtn" id=' + IDbtn + ' style="display: none">Edit</button>';
-            var $delete = '<button class="deletebtn" id=' + IDbtn + ' style="display: none">Delete</button>';
+            var $edit = '<button class="editbtn btn btn-info" id=' + IDbtn + ' style="display: none">Edit</button>';
+            var $delete = '<button class="deletebtn btn btn-danger" id=' + IDbtn + ' style="display: none">Delete</button>';
 
             if ($name === "" || $course === "" || $email === "" || $address === "") {
                 alert("Please fill up all the form");
@@ -157,6 +157,7 @@
 
         $(document).on("click", '.deletebtn', function () {
             var row = $('tr[id=' + this.id + ']').remove();
+            
         });
 
         $(document).on("mouseenter", 'tr', function () {
