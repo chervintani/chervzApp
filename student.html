@@ -109,6 +109,7 @@
     $(document).ready(function () {
         var ID = 0;
         var IDbtn = 1;
+
         $('#studentbtn').click(function () {
             $(this).css("display", "none");
             $('#createForm').css("display", "inherit");
@@ -134,7 +135,7 @@
                 $('#studentbtn').css("display", "inherit");
                 ID = ID + 1;
                 IDbtn = IDbtn + 1;
-                $('#table').append("<tr id=" + ID + "><td><span id=" + ID + ">" + ID + "</span></td><td id=" + ID + " name='name'>" + $name + "</td><td id=" + ID + " name='course'>" + $course + "</td><td id='button'>" + $edit + $delete + "</td></tr>");
+                $('#table').append("<tr id=" + ID + " name='" + $name + "' course='" + $course + "' email='" + $email + "' address='" + $address + "'><td><span id=" + ID + ">" + ID + "</span></td><td id=" + ID + " name='name'>" + $name + "</td><td id=" + ID + " name='course'>" + $course + "</td><td id='button'>" + $edit + $delete + "</td></tr>");
             };
             var $name = $('#name').val("");
             var $course = $('#course').val("");
@@ -151,13 +152,17 @@
             $('#createForm').css("display", "inherit");
             $('#studentbtn').css("display", "none");
 
-            var a = $('#createForm').children("#" + this.id + "").val();
-            $(this).closest('form').data
+            $('#name').val($(this).parents("tr").attr('name'));
+            $('#course').val($(this).parents("tr").attr('course'));
+            $('#email').val($(this).parents("tr").attr('email'));
+            $('#address').val($(this).parents("tr").attr('address'));
+            
+
         });
 
         $(document).on("click", '.deletebtn', function () {
             var row = $('tr[id=' + this.id + ']').remove();
-            
+
         });
 
         $(document).on("mouseenter", 'tr', function () {
